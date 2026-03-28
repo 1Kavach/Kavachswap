@@ -1,0 +1,20 @@
+[package]
+name    = "kavach-amm-tests"
+version = "0.1.0"
+edition = "2021"
+
+[[test]]
+name    = "kavach_amm_core_tests"
+path    = "kavach_amm_core_tests.rs"
+
+[dev-dependencies]
+solana-program          = "1.18"
+solana-program-test     = "1.18"
+solana-sdk              = "1.18"
+spl-token               = { version = "4.0", features = ["no-entrypoint"] }
+tokio                   = { version = "1", features = ["full"] }
+
+[features]
+# Use 'bpf-tests' feature to run full BPF integration tests with the .so
+# Requires: KAVACH_SO_PATH env var pointing to kavach_amm_core.so
+bpf-tests = []

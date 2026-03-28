@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verifiable Builds — Kavachswap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg:#080c10;--surface:#0e141b;--border:#1c2730;--accent:#2de1c2;--accent-dim:#1a8a78;--text:#cdd6e0;--text-muted:#647787;--text-strong:#eaf0f6;--warn:#e8b84b;--radius:6px;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.75;}
+    nav{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;gap:12px;}
+    nav .logo{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:var(--accent);text-decoration:none;}
+    nav .back{margin-left:auto;font-size:13px;color:var(--text-muted);text-decoration:none;border:1px solid var(--border);padding:5px 14px;border-radius:var(--radius);}
+    nav .back:hover{color:var(--accent);border-color:var(--accent-dim);}
+    .wrapper{max-width:860px;margin:0 auto;padding:56px 32px 96px;}
+    .doc-header{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+    .doc-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);background:rgba(45,225,194,0.08);border:1px solid rgba(45,225,194,0.2);padding:3px 10px;border-radius:3px;margin-bottom:16px;}
+    h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:700;color:var(--text-strong);margin-bottom:12px;}
+    .doc-meta{font-size:13px;color:var(--text-muted);display:flex;gap:24px;flex-wrap:wrap;}
+    .section{margin-bottom:48px;}
+    h2{font-family:'Syne',sans-serif;font-size:16px;font-weight:600;color:var(--text-strong);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+    h2 .num{font-family:'DM Sans',monospace;font-size:12px;color:var(--accent);background:rgba(45,225,194,0.08);border:1px solid rgba(45,225,194,0.15);padding:2px 7px;border-radius:3px;}
+    .program-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px 24px;margin-bottom:16px;}
+    .program-card .program-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--text-strong);margin-bottom:4px;display:flex;align-items:center;gap:10px;}
+    .slot-badge{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:2px 8px;border-radius:2px;background:rgba(45,225,194,0.1);color:var(--accent);border:1px solid rgba(45,225,194,0.2);}
+    .program-card .program-id{font-family:'Courier New',monospace;font-size:12px;color:var(--text-muted);margin-bottom:12px;word-break:break-all;}
+    .program-card .program-id strong{color:var(--accent);}
+    .kv-row{display:flex;gap:8px;margin-bottom:6px;font-size:13px;}
+    .kv-row .k{color:var(--text-muted);min-width:140px;flex-shrink:0;}
+    .kv-row .v{color:var(--text-strong);}
+    p{margin-bottom:12px;} p:last-child{margin-bottom:0;}
+    a{color:var(--accent);text-decoration:none;} a:hover{text-decoration:underline;}
+    pre{background:#050810;border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;overflow-x:auto;margin:14px 0;}
+    code{font-family:'Courier New',monospace;font-size:12.5px;color:#b8d4ff;}
+    .inline-code{font-family:'Courier New',monospace;font-size:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border);padding:1px 6px;border-radius:3px;color:var(--accent);}
+    .notice{background:rgba(232,184,75,0.07);border-left:3px solid var(--warn);border-radius:0 var(--radius) var(--radius) 0;padding:14px 18px;margin:20px 0;font-size:13.5px;color:#d4aa55;}
+    .highlight{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin:16px 0;}
+    footer{margin-top:72px;padding-top:24px;border-top:1px solid var(--border);font-size:12.5px;color:var(--text-muted);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;}
+    footer a{color:var(--text-muted);} footer a:hover{color:var(--accent);}
+    @media(max-width:600px){.wrapper{padding:36px 20px 72px;}h1{font-size:24px;}nav{padding:12px 20px;}.kv-row{flex-direction:column;gap:2px;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Kavachswap</a>
+  <a href="/" class="back">← App</a>
+</nav>
+
+<div class="wrapper">
+
+  <div class="doc-header">
+    <div class="doc-tag">Security & Transparency</div>
+    <h1>Verifiable Builds</h1>
+    <div class="doc-meta">
+      <span><strong>Last updated:</strong> March 14, 2026</span>
+      <span><strong>Network:</strong> Solana Mainnet-Beta</span>
+      <span><strong>Toolchain:</strong> Rust / cargo-build-sbf</span>
+    </div>
+  </div>
+
+  <p>Kavachswap is committed to on-chain transparency. This page documents deployed program IDs and how to verify that the on-chain binary matches the published source. Verifiable builds help guarantee that the code you review is the code running on Solana Mainnet.</p>
+
+  <div class="section">
+    <h2><span class="num">01</span> Deployed Program Registry</h2>
+
+    <div class="program-card">
+      <div class="program-name">Kavach Core AMM</div>
+      <div class="program-id">Program ID: <strong>9SYzdw4Wd3cxDyUotZ6nhrtZt4qDHVtKQnQsiJVUsHiM</strong></div>
+      <div class="kv-row"><span class="k">Source path</span><span class="v">programs/kavach_amm_core/</span></div>
+      <div class="kv-row"><span class="k">Swap math</span><span class="v">Constant-product (x·y = k), Token-2022</span></div>
+      <div class="kv-row"><span class="k">Target pairs</span><span class="v">General pairs, volatile</span></div>
+      <div class="kv-row"><span class="k">Upgrade authority</span><span class="v">Deployer wallet — time-lock planned</span></div>
+      <div class="kv-row"><span class="k">Solscan</span><span class="v"><a href="https://solscan.io/account/9SYzdw4Wd3cxDyUotZ6nhrtZt4qDHVtKQnQsiJVUsHiM" target="_blank" rel="noopener">View on Solscan</a></span></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">02</span> Build Environment</h2>
+    <p>Reproducible builds require identical toolchain versions. Typical versions: Rust stable (per rust-toolchain.toml), Solana Tools 1.18.x (cargo-build-sbf), solana-program 1.18.x, spl-token/spl-token-2022, borsh. Build on Linux x86-64 for reproducible hashes; macOS ARM may produce different binaries.</p>
+    <div class="notice">
+      <strong>Important:</strong> Binaries compiled on different OS/architecture can have different checksums. For reproducibility, use Linux x86-64 or the solana-verify Docker method.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">03</span> How to Verify</h2>
+    <p>Use <a href="https://github.com/Ellipsis-Labs/solana-verifiable-build" target="_blank" rel="noopener">solana-verify</a> (Ellipsis Labs) or manual hash comparison:</p>
+    <pre><code># Build Core AMM
+cd programs/kavach_amm_core
+cargo build-sbf
+
+# SHA-256 of local build
+sha256sum ../../target/deploy/kavach_amm_core.so
+
+# Dump on-chain program and compare
+solana program dump 9SYzdw4Wd3cxDyUotZ6nhrtZt4qDHVtKQnQsiJVUsHiM /tmp/on_chain_core.so
+sha256sum /tmp/on_chain_core.so</code></pre>
+    <p>Hashes should match if the deployed binary was built from the same source. Program IDs and upgrade authority: <code>solana program show 9SYzdw4Wd3cxDyUotZ6nhrtZt4qDHVtKQnQsiJVUsHiM</code>.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">04</span> Reporting Build Discrepancies</h2>
+    <div class="highlight">
+      <p>If a deployed program's binary does not match published source, this is a <strong>critical security issue.</strong> Report immediately:</p>
+      <p style="margin-top:12px;">Email: <a href="mailto:1mantisshrimp@gmail.com">1mantisshrimp@gmail.com</a><br />
+      See: <a href="/.well-known/security.txt">security.txt</a> for disclosure policy.</p>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Kavachswap. All rights reserved.</span>
+    <span>
+      <a href="/terms-of-service.html">Terms</a> ·
+      <a href="/privacy-policy.html">Privacy</a> ·
+      <a href="/risk-disclosure.html">Risk Disclosure</a> ·
+      <a href="/non-custodial-statement.html">Non-Custodial</a>
+    </span>
+  </footer>
+
+</div>
+</body>
+</html>

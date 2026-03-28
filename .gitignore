@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+
+# Build (Vite / frontend)
+dist/
+dist-ssr/
+*.local
+
+# Rust / Solana — never commit build trees or deployed .so
+target/
+**/target/
+
+# Env (copy from .env.example)
+.env
+.env.local
+.env.*.local
+
+# Keys (deploy keypairs — never commit)
+**/target/deploy/*-keypair.json
+**/*-keypair.json
+**/keypair*.json
+
+# TypeScript
+*.tsbuildinfo
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Rust backup files
+**/*.rs.bk
+
+# Nested clones / duplicate repos (do not commit as submodules)
+Kavachswap_sol/
+programs/kavach_amm_core/Kavachswap_sol/
+
+# Local validator / test ledger
+programs/**/test-ledger/

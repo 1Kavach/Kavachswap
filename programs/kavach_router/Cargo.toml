@@ -1,0 +1,28 @@
+[package]
+name = "kavach_router"
+version = "1.0.0"
+edition = "2021"
+description = "Kavach Router - routes swaps to one of 4 AMMs, no custody, multisig upgrade"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[dependencies]
+solana-program = "1.18"
+borsh = "0.10"
+thiserror = "1.0"
+
+[dev-dependencies]
+solana-program-test = "1.18"
+solana-sdk = "1.18"
+
+# Suppress cfg warnings from solana-program's entrypoint! macro (dependency macro, not our code)
+[lints.rust]
+unexpected_cfgs = "allow"
+
+[profile.release]
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
+opt-level = 3
+strip = true   # strip debug symbols; smaller .so, less introspection (mainnet)

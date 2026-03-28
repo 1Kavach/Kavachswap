@@ -1,0 +1,27 @@
+[package]
+name = "kavach_rewards"
+version = "1.0.0"
+edition = "2021"
+description = "Kavach v1 liquidity mining — one reward mint per farm, admin-only, Pinocchio + pinocchio-tkn"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[dependencies]
+pinocchio = { version = "0.9.3" }
+pinocchio-tkn = { version = "0.2.2" }
+bincode = "1.3.3"
+serde = { version = "1.0.210", default-features = false, features = ["derive"] }
+
+[dev-dependencies]
+solana-program = "1.18"
+
+[lints.rust]
+unexpected_cfgs = "allow"
+
+[profile.release]
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
+opt-level = 3
+strip = true

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Non-Custodial Statement — Kavachswap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg:#080c10;--surface:#0e141b;--border:#1c2730;--accent:#2de1c2;--accent-dim:#1a8a78;--text:#cdd6e0;--text-muted:#647787;--text-strong:#eaf0f6;--green:#44cc88;--radius:6px;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.75;}
+    nav{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;gap:12px;}
+    nav .logo{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:var(--accent);text-decoration:none;}
+    nav .back{margin-left:auto;font-size:13px;color:var(--text-muted);text-decoration:none;border:1px solid var(--border);padding:5px 14px;border-radius:var(--radius);}
+    nav .back:hover{color:var(--accent);border-color:var(--accent-dim);}
+    .wrapper{max-width:820px;margin:0 auto;padding:56px 32px 96px;}
+    .doc-header{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+    .doc-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);background:rgba(45,225,194,0.08);border:1px solid rgba(45,225,194,0.2);padding:3px 10px;border-radius:3px;margin-bottom:16px;}
+    h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:700;color:var(--text-strong);margin-bottom:12px;}
+    .doc-meta{font-size:13px;color:var(--text-muted);display:flex;gap:24px;flex-wrap:wrap;}
+    .green-box{background:rgba(68,204,136,0.06);border:1px solid rgba(68,204,136,0.2);border-radius:var(--radius);padding:20px 24px;margin:32px 0;}
+    .green-box .label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--green);margin-bottom:10px;}
+    .green-box p{color:#a8e0c0;font-size:14px;margin-bottom:8px;}
+    .green-box p:last-child{margin-bottom:0;}
+    .section{margin-bottom:40px;}
+    h2{font-family:'Syne',sans-serif;font-size:16px;font-weight:600;color:var(--text-strong);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+    h2 .num{font-family:'DM Sans',monospace;font-size:12px;color:var(--accent);background:rgba(45,225,194,0.08);border:1px solid rgba(45,225,194,0.15);padding:2px 7px;border-radius:3px;}
+    p{margin-bottom:12px;} p:last-child{margin-bottom:0;}
+    ul,ol{padding-left:20px;margin-bottom:12px;} li{margin-bottom:5px;}
+    a{color:var(--accent);text-decoration:none;} a:hover{text-decoration:underline;}
+    .fact-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:20px 0;}
+    .fact{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;}
+    .fact .fact-label{font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px;}
+    .fact .fact-value{font-size:13.5px;color:var(--text-strong);}
+    code{font-family:'Courier New',monospace;font-size:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border);padding:1px 6px;border-radius:3px;color:var(--accent);}
+    .highlight{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;margin:16px 0;}
+    footer{margin-top:72px;padding-top:24px;border-top:1px solid var(--border);font-size:12.5px;color:var(--text-muted);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;}
+    footer a{color:var(--text-muted);} footer a:hover{color:var(--accent);}
+    @media(max-width:600px){.wrapper{padding:36px 20px 72px;}h1{font-size:24px;}nav{padding:12px 20px;}.fact-grid{grid-template-columns:1fr;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Kavachswap</a>
+  <a href="/" class="back">← App</a>
+</nav>
+
+<div class="wrapper">
+
+  <div class="doc-header">
+    <div class="doc-tag">Legal</div>
+    <h1>Non-Custodial Statement</h1>
+    <div class="doc-meta">
+      <span><strong>Effective:</strong> March 14, 2026</span>
+      <span><strong>Protocol:</strong> Kavachswap (kavachswap.com)</span>
+    </div>
+  </div>
+
+  <div class="green-box">
+    <div class="label">Core Guarantee</div>
+    <p><strong>Kavachswap never holds, controls, or has access to your funds.</strong> Your assets are held in on-chain program accounts (PDAs) controlled exclusively by the smart contract programs — not by any person or off-chain entity.</p>
+    <p>You maintain sole custody of your private keys. Only you can authorize transactions from your wallet.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">01</span> What Non-Custodial Means</h2>
+    <p>A custodial service holds your assets on your behalf. Kavachswap is the opposite: every asset you interact with remains on the Solana blockchain in accounts whose ownership is enforced by cryptographic rules. No intermediary can freeze, confiscate, or misappropriate your funds because no intermediary ever has custody.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">02</span> Technical Architecture</h2>
+    <p>Non-custody is implemented through Solana's Program Derived Address (PDA) system:</p>
+    <ul>
+      <li><strong>Pool vaults</strong> are token accounts whose authority is a PDA derived from the program ID and the token pair. Only the program logic can authorize transfers from them.</li>
+      <li><strong>LP tokens</strong> are minted and burned by the program according to add/remove liquidity instructions. The operator cannot mint LP tokens to themselves or drain vaults.</li>
+      <li><strong>Fee accumulation</strong> occurs inside pool state; fee recipients are set at pool initialization and cannot be redirected by the Interface operator.</li>
+    </ul>
+    <div class="fact-grid">
+      <div class="fact"><div class="fact-label">Pool Authority</div><div class="fact-value">Program PDA — no private key</div></div>
+      <div class="fact"><div class="fact-label">Vault Controller</div><div class="fact-value">On-chain program logic only</div></div>
+      <div class="fact"><div class="fact-label">User Key Required</div><div class="fact-value">Yes — all operations are user-signed</div></div>
+      <div class="fact"><div class="fact-label">Operator Withdrawal</div><div class="fact-value">Not possible — no admin drain</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">03</span> What the Operator Controls</h2>
+    <p>The deployer may control: (1) <strong>Program upgrade authority</strong> — programs could be updated; this may be time-locked or renounced. (2) <strong>Protocol fee recipient</strong> — receives a portion of trading fees (protocol revenue, not user funds). (3) <strong>Interface</strong> — the kavachswap.com website; users can also interact with the program directly. The operator cannot: drain pool vaults, reverse user transactions, or confiscate LP tokens.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">04</span> Your Responsibilities</h2>
+    <p>You are responsible for: securing your private keys and seed phrase; verifying transaction details before signing; understanding that Solana transactions are irreversible; confirming you are on the legitimate kavachswap.com domain; and monitoring your own positions.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">05</span> Verifying On-Chain</h2>
+    <p>You can verify non-custody by: (1) Looking up pool PDA accounts on a block explorer; (2) Confirming token account authority is a program PDA; (3) Reviewing open-source program code for the absence of an admin withdrawal instruction; (4) Using <code>solana program show &lt;PROGRAM_ID&gt;</code> to check upgrade authority. Program IDs and build info: <a href="/verifiable-builds.html">Verifiable Builds</a>.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">06</span> Contact</h2>
+    <div class="highlight">
+      <p>Questions about custody: <a href="mailto:1mantisshrimp@gmail.com">1mantisshrimp@gmail.com</a></p>
+    </div>
+  </div>
+
+  <footer>
+    <span>© 2026 Kavachswap. All rights reserved.</span>
+    <span>
+      <a href="/terms-of-service.html">Terms</a> ·
+      <a href="/privacy-policy.html">Privacy</a> ·
+      <a href="/risk-disclosure.html">Risk Disclosure</a>
+    </span>
+  </footer>
+
+</div>
+</body>
+</html>

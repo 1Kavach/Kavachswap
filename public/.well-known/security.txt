@@ -1,0 +1,15 @@
+# Kavachswap — Security Contact File
+# RFC 9116: https://www.rfc-editor.org/rfc/rfc9116
+# https://kavachswap.com/.well-known/security.txt
+# Last updated: 2026-03-14
+
+Contact: mailto:1mantisshrimp@gmail.com
+Preferred-Languages: en
+Canonical: https://kavachswap.com/.well-known/security.txt
+Expires: 2027-03-14T23:59:59Z
+Policy: https://kavachswap.com/risk-disclosure.html
+
+# Scope: On-chain programs (Core AMM, Router), kavachswap.com Interface.
+# Report vulnerabilities privately; include component, description, steps, impact.
+# We acknowledge within 72 hours; please allow up to 90 days for fix before public disclosure.
+# No formal bug bounty; compensation at our discretion for critical/high findings.

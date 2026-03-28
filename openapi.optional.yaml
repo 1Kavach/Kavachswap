@@ -1,0 +1,333 @@
+openapi: 3.0.3
+info:
+  title: Kavach Trading API (Optional Spec)
+  version: v1
+  description: |
+    Optional OpenAPI contract for bot/AI integrations.
+    This file is documentation-only and does not change runtime behavior.
+servers:
+  - url: https://api.kavachswap.com/devnet/v1
+    description: Devnet
+  - url: https://api.kavachswap.com/mainnet/v1
+    description: Mainnet
+
+tags:
+  - name: system
+  - name: trading
+  - name: pools
+
+paths:
+  /health:
+    get:
+      tags: [system]
+      summary: Health check
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+
+  /quote:
+    post:
+      tags: [trading]
+      summary: Build a quote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuoteRequest"
+      responses:
+        "200":
+          description: Quote built
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/QuoteResponse"
+        "400":
+          $ref: "#/components/responses/ApiError"
+
+  /simulate:
+    post:
+      tags: [trading]
+      summary: Simulate execution
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SimulateRequest"
+      responses:
+        "200":
+          description: Simulation result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SimulateResponse"
+        "400":
+          $ref: "#/components/responses/ApiError"
+
+  /execute:
+    post:
+      tags: [trading]
+      summary: Execute quote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExecuteRequest"
+      responses:
+        "200":
+          description: Execution submitted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExecuteResponse"
+        "400":
+          $ref: "#/components/responses/ApiError"
+
+  /execute/{client_order_id}:
+    get:
+      tags: [trading]
+      summary: Get execution status
+      parameters:
+        - name: client_order_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Status response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExecutionStatusResponse"
+        "404":
+          $ref: "#/components/responses/ApiError"
+
+  /pools/{pool_address}:
+    get:
+      tags: [pools]
+      summary: Pool snapshot
+      parameters:
+        - name: pool_address
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Pool data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PoolSnapshotResponse"
+        "404":
+          $ref: "#/components/responses/ApiError"
+
+components:
+  responses:
+    ApiError:
+      description: Error response
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+
+  schemas:
+    HealthResponse:
+      type: object
+      required: [ok, cluster, slot, timestamp]
+      properties:
+        ok: { type: boolean }
+        cluster: { type: string, example: devnet }
+        slot: { type: integer, format: int64 }
+        timestamp: { type: string, format: date-time }
+
+    QuoteRequest:
+      type: object
+      required: [wallet, in_mint, out_mint, amount_in_raw, slippage_bps]
+      properties:
+        wallet: { type: string }
+        in_mint: { type: string }
+        out_mint: { type: string }
+        amount_in_raw: { type: string }
+        slippage_bps: { type: integer }
+        prefer:
+          type: array
+          items:
+            type: string
+            enum: [kavach_core, kavach_stable, jupiter]
+        max_hops: { type: integer, minimum: 1, maximum: 4 }
+
+    RouteLeg:
+      type: object
+      required: [kind, program_id, pool_address, in_mint, out_mint]
+      properties:
+        kind:
+          type: string
+          enum: [kavach_core, kavach_stable, jupiter]
+        program_id: { type: string }
+        pool_address: { type: string }
+        in_mint: { type: string }
+        out_mint: { type: string }
+
+    FeeBreakdown:
+      type: object
+      required:
+        [protocol_fee_bps, protocol_fee_amount_raw, lp_fee_bps, lp_fee_amount_raw, network_fee_lamports_estimate]
+      properties:
+        protocol_fee_bps: { type: integer }
+        protocol_fee_amount_raw: { type: string }
+        lp_fee_bps: { type: integer }
+        lp_fee_amount_raw: { type: string }
+        network_fee_lamports_estimate: { type: integer, format: int64 }
+
+    WarningItem:
+      type: object
+      required: [code, message]
+      properties:
+        code: { type: string }
+        message: { type: string }
+
+    QuoteResponse:
+      type: object
+      required:
+        [quote_id, expires_at_ms, amount_in_raw, amount_out_estimated_raw, min_out_raw, price_impact_bps, route, fees, warnings]
+      properties:
+        quote_id: { type: string }
+        expires_at_ms: { type: integer, format: int64 }
+        amount_in_raw: { type: string }
+        amount_out_estimated_raw: { type: string }
+        min_out_raw: { type: string }
+        price_impact_bps: { type: integer }
+        route:
+          type: array
+          items:
+            $ref: "#/components/schemas/RouteLeg"
+        fees:
+          $ref: "#/components/schemas/FeeBreakdown"
+        warnings:
+          type: array
+          items:
+            $ref: "#/components/schemas/WarningItem"
+
+    SimulateRequest:
+      type: object
+      required: [wallet, quote_id, client_order_id]
+      properties:
+        wallet: { type: string }
+        quote_id: { type: string }
+        client_order_id: { type: string, maxLength: 64 }
+
+    SimulateResponse:
+      type: object
+      required:
+        [client_order_id, ok, compute_units_estimate, network_fee_lamports_estimate, amount_out_simulated_raw, min_out_raw, logs_sample]
+      properties:
+        client_order_id: { type: string }
+        ok: { type: boolean }
+        compute_units_estimate: { type: integer, format: int64 }
+        network_fee_lamports_estimate: { type: integer, format: int64 }
+        amount_out_simulated_raw: { type: string }
+        min_out_raw: { type: string }
+        logs_sample:
+          type: array
+          items: { type: string }
+
+    ExecuteRequest:
+      type: object
+      required: [wallet, quote_id, client_order_id]
+      properties:
+        wallet: { type: string }
+        quote_id: { type: string }
+        client_order_id: { type: string, maxLength: 64 }
+        priority_fee_micro_lamports: { type: integer, format: int64 }
+        skip_preflight: { type: boolean, default: false }
+
+    ExecuteResponse:
+      type: object
+      required: [client_order_id, status, tx_signature, submitted_at_ms, explorer_url]
+      properties:
+        client_order_id: { type: string }
+        status: { type: string, enum: [submitted] }
+        tx_signature: { type: string }
+        submitted_at_ms: { type: integer, format: int64 }
+        explorer_url: { type: string }
+
+    ExecutionStatusResponse:
+      type: object
+      required: [client_order_id, status]
+      properties:
+        client_order_id: { type: string }
+        status: { type: string, enum: [submitted, confirmed, failed] }
+        tx_signature: { type: string }
+        slot: { type: integer, format: int64 }
+        filled:
+          type: object
+          properties:
+            in_mint: { type: string }
+            out_mint: { type: string }
+            amount_in_raw: { type: string }
+            amount_out_raw: { type: string }
+        fees_paid:
+          type: object
+          properties:
+            protocol_fee_amount_raw: { type: string }
+            network_fee_lamports: { type: integer, format: int64 }
+        confirmed_at_ms: { type: integer, format: int64 }
+
+    PoolSnapshotResponse:
+      type: object
+      required:
+        [pool_address, kind, token_a_mint, token_b_mint, reserve_a_raw, reserve_b_raw, fee_bps, updated_at_ms]
+      properties:
+        pool_address: { type: string }
+        kind: { type: string, enum: [kavach_core, kavach_stable] }
+        token_a_mint: { type: string }
+        token_b_mint: { type: string }
+        reserve_a_raw: { type: string }
+        reserve_b_raw: { type: string }
+        fee_bps: { type: integer }
+        amp_factor: { type: integer, nullable: true }
+        updated_at_ms: { type: integer, format: int64 }
+
+    ErrorDetail:
+      type: object
+      additionalProperties: true
+
+    ErrorObject:
+      type: object
+      required: [code, message, retryable]
+      properties:
+        code:
+          type: string
+          enum:
+            - INVALID_REQUEST
+            - UNAUTHORIZED
+            - RATE_LIMITED
+            - UNSUPPORTED_MINT
+            - POOL_NOT_FOUND
+            - ROUTE_NOT_FOUND
+            - QUOTE_EXPIRED
+            - SLIPPAGE_EXCEEDED
+            - SIMULATION_FAILED
+            - INSUFFICIENT_BALANCE
+            - BLOCKHASH_EXPIRED
+            - TX_REJECTED
+            - INTERNAL_ERROR
+        message: { type: string }
+        retryable: { type: boolean }
+        details:
+          $ref: "#/components/schemas/ErrorDetail"
+
+    ErrorEnvelope:
+      type: object
+      required: [error]
+      properties:
+        error:
+          $ref: "#/components/schemas/ErrorObject"

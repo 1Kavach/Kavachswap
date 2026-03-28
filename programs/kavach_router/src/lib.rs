@@ -1,0 +1,22 @@
+//! Kavach Router — one entry point, routes to one of 4 AMMs. No custody. Upgrade = multisig.
+
+use solana_program::{
+    account_info::AccountInfo,
+    entrypoint,
+    entrypoint::ProgramResult,
+    pubkey::Pubkey,
+};
+
+pub mod error;
+pub mod instruction;
+pub mod state;
+
+entrypoint!(process_instruction);
+
+pub fn process_instruction(
+    program_id: &Pubkey,
+    accounts: &[AccountInfo],
+    instruction_data: &[u8],
+) -> ProgramResult {
+    instruction::process(program_id, accounts, instruction_data)
+}

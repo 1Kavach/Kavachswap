@@ -1,0 +1,35 @@
+[package]
+name = "kavach_amm_stable"
+version = "2.0.0"
+edition = "2021"
+description = "Kavach Stable AMM — StableSwap-style curve, Token-2022, output fee + 50/50 CPI, no Anchor"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+
+[dependencies]
+solana-program = "1.18"
+spl-token = "4.0"
+borsh = "0.10"
+thiserror = "1.0"
+solana-security-txt = "1.1.2"
+default-env = "0.1"
+
+# Host `cargo check` needs `zk-ops` (see spl-token-2022 `split_proof_generation` + kavach_amm_core Cargo.toml).
+# SBF: omit `zk-ops` to avoid confidential-transfer stack overflow.
+[target.'cfg(not(target_os = "solana"))'.dependencies]
+spl-token-2022 = { version = "1.0", default-features = false, features = ["no-entrypoint", "zk-ops"] }
+
+[target.'cfg(target_os = "solana")'.dependencies]
+spl-token-2022 = { version = "1.0", default-features = false, features = ["no-entrypoint"] }
+
+[dev-dependencies]
+solana-program-test = "1.18"
+solana-sdk = "1.18"
+
+[profile.release]
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
+opt-level = 3
+strip = true

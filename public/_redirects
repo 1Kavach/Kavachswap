@@ -1,0 +1,4 @@
+# Cloudflare Pages: SPA routing and multi-page
+# /app.html = DEX (Swap, Liquidity, etc.); / = dashboard
+/app.html   /app.html   200
+/*          /index.html 200

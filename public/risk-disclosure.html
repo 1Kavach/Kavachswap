@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Risk Disclosure — Kavachswap</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+  <style>
+    :root{--bg:#080c10;--surface:#0e141b;--border:#1c2730;--accent:#2de1c2;--accent-dim:#1a8a78;--text:#cdd6e0;--text-muted:#647787;--text-strong:#eaf0f6;--warn:#e8b84b;--danger:#e05c5c;--radius:6px;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.75;}
+    nav{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;gap:12px;}
+    nav .logo{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:var(--accent);text-decoration:none;}
+    nav .back{margin-left:auto;font-size:13px;color:var(--text-muted);text-decoration:none;border:1px solid var(--border);padding:5px 14px;border-radius:var(--radius);}
+    nav .back:hover{color:var(--accent);border-color:var(--accent-dim);}
+    .wrapper{max-width:820px;margin:0 auto;padding:56px 32px 96px;}
+    .doc-header{margin-bottom:48px;padding-bottom:32px;border-bottom:1px solid var(--border);}
+    .doc-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);background:rgba(45,225,194,0.08);border:1px solid rgba(45,225,194,0.2);padding:3px 10px;border-radius:3px;margin-bottom:16px;}
+    h1{font-family:'Syne',sans-serif;font-size:32px;font-weight:700;color:var(--text-strong);margin-bottom:12px;}
+    .doc-meta{font-size:13px;color:var(--text-muted);display:flex;gap:24px;flex-wrap:wrap;}
+    .danger-box{background:rgba(224,92,92,0.07);border:1px solid rgba(224,92,92,0.25);border-radius:var(--radius);padding:18px 20px;margin:32px 0;}
+    .danger-box p{color:#d47070;font-size:14px;margin-bottom:8px;}
+    .danger-box p:last-child{margin-bottom:0;}
+    .danger-box strong{color:var(--danger);}
+    .section{margin-bottom:40px;}
+    h2{font-family:'Syne',sans-serif;font-size:16px;font-weight:600;color:var(--text-strong);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+    h2 .num{font-family:'DM Sans',monospace;font-size:12px;color:var(--accent);background:rgba(45,225,194,0.08);border:1px solid rgba(45,225,194,0.15);padding:2px 7px;border-radius:3px;}
+    .risk-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:16px;}
+    .risk-card h3{font-family:'Syne',sans-serif;font-size:14px;font-weight:600;color:var(--text-strong);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+    .risk-level{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;padding:2px 8px;border-radius:2px;}
+    .risk-level.high{background:rgba(224,92,92,0.15);color:var(--danger);border:1px solid rgba(224,92,92,0.3);}
+    .risk-level.medium{background:rgba(232,184,75,0.1);color:var(--warn);border:1px solid rgba(232,184,75,0.25);}
+    .risk-card p{font-size:13.5px;color:var(--text);margin-bottom:0;}
+    p{margin-bottom:12px;} p:last-child{margin-bottom:0;}
+    a{color:var(--accent);text-decoration:none;} a:hover{text-decoration:underline;}
+    footer{margin-top:72px;padding-top:24px;border-top:1px solid var(--border);font-size:12.5px;color:var(--text-muted);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;}
+    footer a{color:var(--text-muted);} footer a:hover{color:var(--accent);}
+    @media(max-width:600px){.wrapper{padding:36px 20px 72px;}h1{font-size:24px;}nav{padding:12px 20px;}}
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">Kavachswap</a>
+  <a href="/" class="back">← App</a>
+</nav>
+
+<div class="wrapper">
+
+  <div class="doc-header">
+    <div class="doc-tag">Legal</div>
+    <h1>Risk Disclosure</h1>
+    <div class="doc-meta">
+      <span><strong>Effective:</strong> March 14, 2026</span>
+      <span><strong>Protocol:</strong> Kavachswap (kavachswap.com)</span>
+    </div>
+  </div>
+
+  <div class="danger-box">
+    <p><strong>IMPORTANT — READ BEFORE USING THE PROTOCOL.</strong></p>
+    <p>Trading and providing liquidity in DeFi carries substantial risk of loss, including the potential loss of all funds. This document describes material risks. It is not exhaustive. Do not use the Protocol unless you fully understand and can afford to accept these risks.</p>
+    <p>This document is informational only. It is not financial, investment, or legal advice.</p>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">01</span> Smart Contract & Protocol Risk</h2>
+    <div class="risk-card">
+      <h3>Contract Vulnerabilities <span class="risk-level high">High</span></h3>
+      <p>The Kavachswap Protocol consists of on-chain programs. All smart contracts may contain bugs or design flaws that could be exploited. The Protocol may not have been audited by an independent third party as of this date. Use accordingly.</p>
+    </div>
+    <div class="risk-card">
+      <h3>Upgrade & Admin Key Risk <span class="risk-level medium">Medium</span></h3>
+      <p>Programs may be upgradeable by the deployer's authority. If the upgrade authority is not renounced or time-locked, a compromised authority could deploy a modified program. Review upgrade authority status of program IDs before committing significant funds.</p>
+    </div>
+    <div class="risk-card">
+      <h3>Token-2022 & Extensions <span class="risk-level medium">Medium</span></h3>
+      <p>Tokens with transfer fees, interest-bearing mechanisms, or other Token-2022 extensions may have limited support or behave differently. Use standard SPL and Token-2022 tokens; check documentation for extension support.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">02</span> Market & Financial Risk</h2>
+    <div class="risk-card">
+      <h3>Price Volatility <span class="risk-level high">High</span></h3>
+      <p>Digital assets are highly volatile and may decrease to zero. Never allocate more than you can afford to lose entirely.</p>
+    </div>
+    <div class="risk-card">
+      <h3>Impermanent Loss (LPs) <span class="risk-level high">High</span></h3>
+      <p>When the price ratio of pooled assets changes, you may receive less total value when you withdraw than if you had simply held the assets. Impermanent loss can exceed fees earned.</p>
+    </div>
+    <div class="risk-card">
+      <h3>Slippage & Price Impact <span class="risk-level medium">Medium</span></h3>
+      <p>Large trades relative to pool liquidity execute at worse prices. Setting too wide a slippage exposes you to sandwich attacks; too narrow may cause failed transactions.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">03</span> Network & Infrastructure Risk</h2>
+    <div class="risk-card">
+      <h3>Solana Network <span class="risk-level medium">Medium</span></h3>
+      <p>Congestion, validator outages, or halts may delay or fail transactions. The Protocol has no control over network availability.</p>
+    </div>
+    <div class="risk-card">
+      <h3>RPC Provider <span class="risk-level medium">Medium</span></h3>
+      <p>The Interface connects via third-party RPC providers. Downtime or incorrect data may cause stale prices or failed submissions. Use a backup RPC in your wallet when possible.</p>
+    </div>
+    <div class="risk-card">
+      <h3>Front-End Risk <span class="risk-level medium">Medium</span></h3>
+      <p>The web Interface could theoretically be compromised via DNS, CDN, or supply chain attacks. Always verify you are on the correct domain. Advanced users can interact with the program directly.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">04</span> MEV & Transaction Ordering</h2>
+    <div class="risk-card">
+      <h3>Sandwich Attacks & MEV <span class="risk-level medium">Medium</span></h3>
+      <p>Transactions can be observed before confirmation. Bots may front-run or sandwich your trade. Set appropriate slippage tolerance. The Protocol does not include MEV protection at the contract level at this time.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">05</span> Regulatory & Legal Risk</h2>
+    <div class="risk-card">
+      <h3>Regulatory Uncertainty <span class="risk-level high">High</span></h3>
+      <p>The legal status of DeFi and digital assets is uncertain and evolving. Future regulations could restrict or prohibit use, require KYC/AML, or impose taxes. You are solely responsible for complying with applicable laws.</p>
+    </div>
+    <div class="risk-card">
+      <h3>Tax Obligations <span class="risk-level medium">Medium</span></h3>
+      <p>Swaps, liquidity provision, and fee distributions may be taxable events. The Protocol does not provide tax records or advice.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">06</span> Key & Wallet Risk</h2>
+    <div class="risk-card">
+      <h3>Private Key Loss or Theft <span class="risk-level high">High</span></h3>
+      <p>You are solely responsible for the security of your private keys and seed phrase. The Protocol cannot recover lost keys or reverse unauthorized transactions. Lost or stolen keys mean permanently unrecoverable assets.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><span class="num">07</span> Acknowledgment</h2>
+    <p>By using Kavachswap, you confirm that you have read and understood this Risk Disclosure, have evaluated your risk tolerance, and assume all risks. No warranty, guarantee, or representation of safety is made by the operator.</p>
+    <p>Questions: <a href="mailto:1mantisshrimp@gmail.com">1mantisshrimp@gmail.com</a></p>
+  </div>
+
+  <footer>
+    <span>© 2026 Kavachswap. All rights reserved.</span>
+    <span>
+      <a href="/terms-of-service.html">Terms</a> ·
+      <a href="/privacy-policy.html">Privacy</a> ·
+      <a href="/non-custodial-statement.html">Non-Custodial</a>
+    </span>
+  </footer>
+
+</div>
+</body>
+</html>
